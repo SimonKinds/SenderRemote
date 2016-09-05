@@ -21,4 +21,25 @@ public class Pin {
     public String getPin() {
         return _pin;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Pin pin = (Pin) o;
+
+        return _pin.equals(pin._pin);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return _pin.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return _pin;
+    }
 }
