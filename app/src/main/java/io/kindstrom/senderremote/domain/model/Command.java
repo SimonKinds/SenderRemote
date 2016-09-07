@@ -1,23 +1,29 @@
 package io.kindstrom.senderremote.domain.model;
 
-public abstract class Command {
-    public String getCommandString(Pin pin) {
-        if(pin == null) {
-            return null;
-        }
-        String commandBody = getCommandBody();
-        if(commandBody == null) {
-            return null;
-        }
-        if(!commandBody.isEmpty()) {
-            commandBody += " ";
-        }
-        return getCommandIdentifier() + " " + commandBody + pin.getPin();
+public final class Command {
+    private Command() {}
+
+    private static String concat(String identifier, Pin pin) {
+        return identifier + " " + pin.getPin();
     }
 
-    protected String getCommandBody() {
-        return "";
+    public static String temperature(Pin pin) {
+        return concat("TEMP", pin);
     }
 
-    protected abstract String getCommandIdentifier();
+    public static String humidity(Pin pin) {
+        return concat("HUMID", pin);
+    }
+
+    public static String measurements(Pin pin) {
+        return concat("MEAS", pin);
+    }
+
+    public static String status(Pin pin) {
+        return concat("STATUS", pin);
+    }
+
+    public static String pin(Pin newPin, Pin oldPin) {
+        return concat(concat("PIN", newPin), oldPin);
+    }
 }
