@@ -1,6 +1,15 @@
 package io.kindstrom.senderremote.domain.model;
 
 public abstract class Command {
+    private final int id;
+    private final String name;
+    private final String description;
+
+    protected Command(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
 
     public final String commandString(Pin pin) {
         String body = commandStringBody();

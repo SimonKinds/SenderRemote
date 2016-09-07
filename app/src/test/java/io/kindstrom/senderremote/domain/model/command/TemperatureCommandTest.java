@@ -9,6 +9,7 @@ import static org.junit.Assert.assertEquals;
 public class TemperatureCommandTest {
     @Test
     public void commandString() throws Exception {
-        assertEquals("TEMP 1234", new TemperatureCommand().commandString(Pin.create("1234")));
+        TemperatureCommand command = new TemperatureCommand(0, "", "");
+        assertEquals("TEMP 1234", command.commandString(Pin.create("1234")));
     }
 }

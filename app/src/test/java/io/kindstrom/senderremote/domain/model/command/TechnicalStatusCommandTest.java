@@ -10,6 +10,7 @@ public class TechnicalStatusCommandTest {
 
     @Test
     public void commandString() throws Exception {
-        assertEquals("SW 1234", new TechnicalStatusCommand().commandString(Pin.create("1234")));
+        TechnicalStatusCommand command = new TechnicalStatusCommand(0, "", "");
+        assertEquals("SW 1234", command.commandString(Pin.create("1234")));
     }
 }

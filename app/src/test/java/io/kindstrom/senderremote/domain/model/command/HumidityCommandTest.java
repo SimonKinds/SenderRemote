@@ -9,6 +9,7 @@ import static org.junit.Assert.assertEquals;
 public class HumidityCommandTest {
     @Test
     public void commandString() throws Exception {
-        assertEquals("HUMID 1234", new HumidityCommand().commandString(Pin.create("1234")));
+        HumidityCommand command = new HumidityCommand(0, "", "");
+        assertEquals("HUMID 1234", command.commandString(Pin.create("1234")));
     }
 }

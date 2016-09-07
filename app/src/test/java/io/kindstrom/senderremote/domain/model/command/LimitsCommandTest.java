@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class LimitsCommandTest {
     @Test
     public void commandString() throws Exception {
-        assertEquals("LIMITS -L25 H15 1234",
-                new LimitsCommand(Limits.create(-25, 15)).commandString(Pin.create("1234")));
+        LimitsCommand command = new LimitsCommand(0, "", "", Limits.create(-25, 15));
+        assertEquals("LIMITS -L25 H15 1234", command.commandString(Pin.create("1234")));
     }
 }

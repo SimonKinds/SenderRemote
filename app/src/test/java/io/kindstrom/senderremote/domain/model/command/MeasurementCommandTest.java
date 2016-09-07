@@ -9,6 +9,7 @@ import static org.junit.Assert.assertEquals;
 public class MeasurementCommandTest {
     @Test
     public void commandString() throws Exception {
-        assertEquals("MEAS 1234", new MeasurementCommand().commandString(Pin.create("1234")));
+        MeasurementCommand command = new MeasurementCommand(0, "", "");
+        assertEquals("MEAS 1234", command.commandString(Pin.create("1234")));
     }
 }
