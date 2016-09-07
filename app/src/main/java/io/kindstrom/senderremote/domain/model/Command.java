@@ -1,5 +1,8 @@
 package io.kindstrom.senderremote.domain.model;
 
+import java.util.Collection;
+import java.util.List;
+
 public final class Command {
     private Command() {}
 
@@ -43,5 +46,41 @@ public final class Command {
 
     public static String sw(Pin pin) {
         return concat("SW", pin);
+    }
+
+    public static String on(int portNumber, Pin pin) {
+        return on(portNumber, null, pin);
+    }
+
+    public static String on(int portNumber, Duration duration, Pin pin) {
+        return outputCommandString("ON", portNumber, duration, pin);
+    }
+
+    public static String off(int portNumber, Pin pin) {
+        return off(portNumber, null, pin);
+    }
+
+    public static String off(int portNumber, Duration duration, Pin pin) {
+        return outputCommandString("OFF", portNumber, duration, pin);
+    }
+
+    private static String outputCommandString(String identifier, int portNumber, Duration duration,
+                                              Pin pin) {
+        if(pin == null) {
+            return null;
+        }
+
+        StringBuilder commandString = new StringBuilder(identifier);
+        commandString.append(" ");
+        commandString.append(portNumber);
+        commandString.append(" ");
+
+        if(duration != null) {
+            commandString.append(duration.inCommandFormat());
+            commandString.append(" ");
+        }
+
+        commandString.append(pin.getPin());
+        return commandString.toString();
     }
 }

@@ -3,6 +3,9 @@ package io.kindstrom.senderremote.domain.model;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class CommandTest {
@@ -41,5 +44,25 @@ public class CommandTest {
     @Test
     public void sw() throws Exception {
         assertEquals("SW 1234", Command.sw(pin));
+    }
+
+    @Test
+    public void onNoDuration() throws Exception {
+        assertEquals("ON 7 1234", Command.on(7, pin));
+    }
+
+    @Test
+    public void onWithDuration() throws Exception {
+        assertEquals("ON 5 T1M2S3 1234", Command.on(5, new Duration(1, 2, 3), pin));
+    }
+
+    @Test
+    public void offNoDuration() throws Exception {
+        assertEquals("OFF 7 1234", Command.off(7, pin));
+    }
+
+    @Test
+    public void offWithDuration() throws Exception {
+        assertEquals("OFF 5 T1M2S3 1234", Command.off(5, new Duration(1, 2, 3), pin));
     }
 }
