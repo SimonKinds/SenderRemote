@@ -37,4 +37,9 @@ public class CommandTest {
     public void limit() throws Exception {
         assertEquals("LIMITS -L25 H15 1234", Command.limits(Limits.create(-25, 15), pin));
     }
+
+    @Test
+    public void sw() throws Exception {
+        assertEquals("SW 1234", Command.sw(pin));
+    }
 }

@@ -40,4 +40,8 @@ public final class Command {
 
         return "LIMITS " + limits.inCommandFormat() + " " + pin;
     }
+
+    public static String sw(Pin pin) {
+        return concat("SW", pin);
+    }
 }
