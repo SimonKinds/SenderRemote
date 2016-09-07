@@ -3,9 +3,13 @@ package io.kindstrom.senderremote.domain.model;
 import java.util.List;
 
 public class Group {
+    private final int id;
+    private final String name;
     private final List<Sender> senders;
 
-    public Group(List<Sender> senders) {
+    public Group(int id, String name, List<Sender> senders) {
+        this.id = id;
+        this.name = name;
         this.senders = senders;
     }
 
