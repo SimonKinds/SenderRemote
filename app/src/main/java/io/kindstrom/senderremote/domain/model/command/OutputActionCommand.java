@@ -26,4 +26,23 @@ public abstract class OutputActionCommand extends Command {
 
         return commandBody.toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        OutputActionCommand that = (OutputActionCommand) o;
+
+        return portNumber == that.portNumber && (duration != null ? duration.equals(that.duration) : that.duration == null);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + portNumber;
+        result = 31 * result + (duration != null ? duration.hashCode() : 0);
+        return result;
+    }
 }

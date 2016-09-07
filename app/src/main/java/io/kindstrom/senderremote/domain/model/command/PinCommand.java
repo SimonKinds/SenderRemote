@@ -24,4 +24,23 @@ public class PinCommand extends Command {
         }
         return newPin.getPin();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        PinCommand that = (PinCommand) o;
+
+        return newPin != null ? newPin.equals(that.newPin) : that.newPin == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (newPin != null ? newPin.hashCode() : 0);
+        return result;
+    }
 }
