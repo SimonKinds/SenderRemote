@@ -32,4 +32,9 @@ public class CommandTest {
     public void pin() throws Exception {
         assertEquals("PIN 456789 1234", Command.pin(Pin.create("456789"), pin));
     }
+
+    @Test
+    public void limit() throws Exception {
+        assertEquals("LIMITS -L25 H15 1234", Command.limits(Limits.create(-25, 15), pin));
+    }
 }

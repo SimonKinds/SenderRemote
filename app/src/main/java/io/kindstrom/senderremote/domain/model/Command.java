@@ -4,6 +4,9 @@ public final class Command {
     private Command() {}
 
     private static String concat(String identifier, Pin pin) {
+        if(pin == null) {
+            return null;
+        }
         return identifier + " " + pin.getPin();
     }
 
@@ -24,6 +27,17 @@ public final class Command {
     }
 
     public static String pin(Pin newPin, Pin oldPin) {
+        if(newPin == null || oldPin == null) {
+            return null;
+        }
         return concat(concat("PIN", newPin), oldPin);
+    }
+
+    public static String limits(Limits limits, Pin pin) {
+        if(limits == null || pin == null) {
+            return null;
+        }
+
+        return "LIMITS " + limits.inCommandFormat() + " " + pin;
     }
 }
