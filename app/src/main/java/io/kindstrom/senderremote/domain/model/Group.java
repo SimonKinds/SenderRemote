@@ -13,15 +13,16 @@ public class Group {
         this.senders = senders;
     }
 
-    public List<Sender> getSenders() {
-        return senders;
+    public int getId() {
+        return id;
     }
 
-    @Override
-    public String toString() {
-        return "Group{" +
-                "senders=" + senders +
-                '}';
+    public String getName() {
+        return name;
+    }
+
+    public List<Sender> getSenders() {
+        return senders;
     }
 
     @Override
@@ -31,12 +32,23 @@ public class Group {
 
         Group group = (Group) o;
 
-        return senders != null ? senders.equals(group.senders) : group.senders == null;
+        return id == group.id && (name != null ? name.equals(group.name) : group.name == null && (senders != null ? senders.equals(group.senders) : group.senders == null));
 
     }
 
     @Override
     public int hashCode() {
-        return senders != null ? senders.hashCode() : 0;
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (senders != null ? senders.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "id=" + id +
+                ", name='" + name +
+                '}';
     }
 }

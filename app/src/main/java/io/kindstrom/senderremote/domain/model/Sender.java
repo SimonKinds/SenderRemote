@@ -75,4 +75,14 @@ public class Sender {
         result = 31 * result + (commands != null ? commands.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Sender{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", number='" + number + '\'' +
+                ", pin=" + pin +
+                '}';
+    }
 }
