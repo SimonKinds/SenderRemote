@@ -10,7 +10,7 @@ public class GroupRepositoryContract implements BaseColumns {
 
     public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME
             + " ("
-            + _ID + " INTEGER PRIMARY KEY"
+            + _ID + " INTEGER PRIMARY KEY, "
             + COLUMN_NAME + " TEXT"
             + ")";
 }

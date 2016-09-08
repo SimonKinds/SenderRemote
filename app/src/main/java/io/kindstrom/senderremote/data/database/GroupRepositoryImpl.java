@@ -7,12 +7,15 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.kindstrom.senderremote.data.database.contract.GroupRepositoryContract;
 import io.kindstrom.senderremote.domain.database.Repository;
 import io.kindstrom.senderremote.domain.model.Group;
 
 public class GroupRepositoryImpl extends RepositoryImpl implements Repository<Group>, Mapper<Group> {
 
+    @Inject
     public GroupRepositoryImpl(SQLiteDatabase db) {
         super(db);
     }
