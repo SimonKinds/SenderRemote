@@ -2,7 +2,6 @@ package io.kindstrom.senderremote.presentation.view;
 
 import java.util.List;
 
-import io.kindstrom.senderremote.domain.model.Command;
 import io.kindstrom.senderremote.domain.model.Sender;
 
 public interface SenderListView {
@@ -10,5 +9,5 @@ public interface SenderListView {
 
     void setSenders(List<Sender> senders);
 
-    void showCommand(Command command);
+    void showSender(Sender sender);
 }

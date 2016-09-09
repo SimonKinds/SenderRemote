@@ -14,7 +14,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.kindstrom.senderremote.R;
 import io.kindstrom.senderremote.domain.model.Group;
-import io.kindstrom.senderremote.domain.model.Sender;
 import io.kindstrom.senderremote.presentation.adapter.SingleTextItemAdapter;
 import io.kindstrom.senderremote.presentation.internal.di.components.DaggerGroupComponent;
 import io.kindstrom.senderremote.presentation.presenter.GroupListPresenter;
@@ -58,11 +57,16 @@ public class GroupListActivity extends BaseActivity implements GroupListView {
             protected String getText(Group group) {
                 return group.getName();
             }
+
+            @Override
+            protected void onItemClicked(Group group) {
+                presenter.onGroupClicked(group);
+            }
         });
     }
 
     @Override
-    public void viewSender(Sender sender) {
-        Snackbar.make(rv_group_list, "Viewing sender", Snackbar.LENGTH_SHORT).show();
+    public void showGroup(Group group) {
+        Snackbar.make(rv_group_list, "Viewing group " + group.getName(), Snackbar.LENGTH_SHORT).show();
     }
 }

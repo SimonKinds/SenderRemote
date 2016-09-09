@@ -3,6 +3,7 @@ package io.kindstrom.senderremote.presentation.presenter;
 import javax.inject.Inject;
 
 import io.kindstrom.senderremote.domain.interactor.GetGroupsInteractor;
+import io.kindstrom.senderremote.domain.model.Group;
 import io.kindstrom.senderremote.presentation.internal.di.PerActivity;
 import io.kindstrom.senderremote.presentation.view.GroupListView;
 
@@ -24,5 +25,9 @@ public class GroupListPresenter implements Presenter<GroupListView> {
     @Override
     public void detach() {
         //nop
+    }
+
+    public void onGroupClicked(Group group) {
+        view.showGroup(group);
     }
 }

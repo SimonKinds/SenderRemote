@@ -16,7 +16,7 @@ import io.kindstrom.senderremote.R;
 public abstract class SingleTextItemAdapter<E> extends RecyclerView.Adapter<SingleTextItemAdapter.SingleTextItemViewHolder> {
     private final List<E> items;
 
-    public SingleTextItemAdapter(List<E> items) {
+    protected SingleTextItemAdapter(List<E> items) {
         this.items = items;
     }
 
@@ -27,8 +27,9 @@ public abstract class SingleTextItemAdapter<E> extends RecyclerView.Adapter<Sing
     }
 
     @Override
-    public void onBindViewHolder(SingleTextItemViewHolder holder, int position) {
+    public void onBindViewHolder(SingleTextItemViewHolder holder, final int position) {
         holder.text.setText(getText(items.get(position)));
+        holder.itemView.setOnClickListener(v -> onItemClicked(items.get(position)));
     }
 
     @Override
@@ -37,6 +38,8 @@ public abstract class SingleTextItemAdapter<E> extends RecyclerView.Adapter<Sing
     }
 
     abstract protected String getText(E item);
+
+    abstract protected void onItemClicked(E item);
 
     static class SingleTextItemViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.text)

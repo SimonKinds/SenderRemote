@@ -2,9 +2,9 @@ package io.kindstrom.senderremote.presentation.view.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -13,7 +13,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.kindstrom.senderremote.R;
-import io.kindstrom.senderremote.domain.model.Command;
 import io.kindstrom.senderremote.domain.model.Sender;
 import io.kindstrom.senderremote.presentation.adapter.SingleTextItemAdapter;
 import io.kindstrom.senderremote.presentation.internal.di.components.DaggerSenderComponent;
@@ -65,11 +64,16 @@ public class SenderListActivity extends BaseActivity implements SenderListView {
             protected String getText(Sender sender) {
                 return sender.getName();
             }
+
+            @Override
+            protected void onItemClicked(Sender sender) {
+                presenter.onSenderClicked(sender);
+            }
         });
     }
 
     @Override
-    public void showCommand(Command command) {
-        Snackbar.make(rv, "Showing command", Snackbar.LENGTH_SHORT).show();
+    public void showSender(Sender sender) {
+        Toast.makeText(this, "Showing " + sender.getName(), Toast.LENGTH_SHORT).show();
     }
 }
