@@ -7,7 +7,7 @@ import io.kindstrom.senderremote.presentation.internal.di.PerActivity;
 import io.kindstrom.senderremote.presentation.view.GroupListView;
 
 @PerActivity
-public class GroupListPresenter {
+public class GroupListPresenter implements Presenter<GroupListView> {
     private final GetGroupsInteractor getGroupsInteractor;
     private GroupListView view;
 
@@ -16,10 +16,12 @@ public class GroupListPresenter {
         this.getGroupsInteractor = getGroupsInteractor;
     }
 
+    @Override
     public void attach(GroupListView groupListView) {
         groupListView.setGroups(getGroupsInteractor.execute());
     }
 
+    @Override
     public void detach() {
         //nop
     }

@@ -4,19 +4,17 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.kindstrom.senderremote.data.database.contract.GroupRepositoryContract;
-import io.kindstrom.senderremote.domain.database.Repository;
 import io.kindstrom.senderremote.domain.model.Group;
 
-public class GroupRepositoryImpl extends RepositoryImpl implements Repository<Group>, Mapper<Group> {
+public class GroupRepository extends RepositoryImpl<Group> {
 
     @Inject
-    public GroupRepositoryImpl(SQLiteDatabase db) {
+    public GroupRepository(SQLiteDatabase db) {
         super(db);
     }
 
@@ -63,18 +61,5 @@ public class GroupRepositoryImpl extends RepositoryImpl implements Repository<Gr
         int id = cursor.getInt(idIndex);
         String name = cursor.getString(nameIndex);
         return new Group(id, name, null);
-    }
-
-    @Override
-    public List<Group> map(Cursor cursor) {
-        List<Group> groups = new ArrayList<>(cursor.getCount());
-        if (cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            do {
-                groups.add(mapSingle(cursor));
-            } while (cursor.moveToNext());
-        }
-
-        return groups;
     }
 }

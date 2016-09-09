@@ -13,34 +13,35 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.kindstrom.senderremote.R;
-import io.kindstrom.senderremote.domain.model.Group;
+import io.kindstrom.senderremote.domain.model.Command;
 import io.kindstrom.senderremote.domain.model.Sender;
 import io.kindstrom.senderremote.presentation.adapter.SingleTextItemAdapter;
-import io.kindstrom.senderremote.presentation.internal.di.components.DaggerGroupComponent;
-import io.kindstrom.senderremote.presentation.presenter.GroupListPresenter;
-import io.kindstrom.senderremote.presentation.view.GroupListView;
+import io.kindstrom.senderremote.presentation.internal.di.components.DaggerSenderComponent;
+import io.kindstrom.senderremote.presentation.presenter.SenderListPresenter;
+import io.kindstrom.senderremote.presentation.view.SenderListView;
 
 
-public class GroupListActivity extends BaseActivity implements GroupListView {
+public class SenderListActivity extends BaseActivity implements SenderListView {
+
     @BindView(R.id.rv)
-    RecyclerView rv_group_list;
+    RecyclerView rv;
 
     @Inject
-    GroupListPresenter presenter;
+    SenderListPresenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view);
 
-        ButterKnife.bind(this);
-        rv_group_list.setLayoutManager(new LinearLayoutManager(this));
-
-
-        DaggerGroupComponent.builder()
+        DaggerSenderComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .build()
                 .inject(this);
+
+        ButterKnife.bind(this);
+
+        rv.setLayoutManager(new LinearLayoutManager(this));
 
         presenter.attach(this);
     }
@@ -48,21 +49,27 @@ public class GroupListActivity extends BaseActivity implements GroupListView {
     @Override
     protected void onDestroy() {
         presenter.detach();
+
         super.onDestroy();
     }
 
     @Override
-    public void setGroups(List<Group> groups) {
-        rv_group_list.setAdapter(new SingleTextItemAdapter<Group>(groups) {
+    public void setTitle(String title) {
+        super.setTitle(title);
+    }
+
+    @Override
+    public void setSenders(List<Sender> senders) {
+        rv.setAdapter(new SingleTextItemAdapter<Sender>(senders) {
             @Override
-            protected String getText(Group group) {
-                return group.getName();
+            protected String getText(Sender sender) {
+                return sender.getName();
             }
         });
     }
 
     @Override
-    public void viewSender(Sender sender) {
-        Snackbar.make(rv_group_list, "Viewing sender", Snackbar.LENGTH_SHORT).show();
+    public void showCommand(Command command) {
+        Snackbar.make(rv, "Showing command", Snackbar.LENGTH_SHORT).show();
     }
 }

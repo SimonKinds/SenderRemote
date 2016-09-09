@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_group_list"
+    <TextView
+        android:id="@+id/text"
+        style="@style/single_line_list_item"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/list_padding_bottom"
-        android:paddingTop="@dimen/list_padding_top" />
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import io.kindstrom.senderremote.domain.database.Repository;
 import io.kindstrom.senderremote.domain.model.Group;
 
-public class GetGroupsInteractor {
+public class GetGroupsInteractor implements Interactor<List<Group>> {
     private final Repository<Group> groupRepository;
 
     @Inject
@@ -15,6 +15,7 @@ public class GetGroupsInteractor {
         this.groupRepository = groupRepository;
     }
 
+    @Override
     public List<Group> execute() {
         return groupRepository.getAll();
     }
