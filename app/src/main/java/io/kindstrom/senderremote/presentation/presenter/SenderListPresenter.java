@@ -26,7 +26,7 @@ public class SenderListPresenter implements Presenter<SenderListView> {
 
     @Override
     public void detach() {
-        // nop
+        view = null;
     }
 
     public void onSenderClicked(Sender sender) {

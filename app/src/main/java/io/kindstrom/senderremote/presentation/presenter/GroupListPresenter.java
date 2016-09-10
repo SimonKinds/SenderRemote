@@ -25,7 +25,7 @@ public class GroupListPresenter implements Presenter<GroupListView> {
 
     @Override
     public void detach() {
-        //nop
+        view = null;
     }
 
     public void onGroupClicked(Group group) {
