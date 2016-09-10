@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.kindstrom.senderremote.data.database.contract.GroupMemberRepositoryContract;
 import io.kindstrom.senderremote.data.database.contract.GroupRepositoryContract;
 import io.kindstrom.senderremote.data.database.contract.SenderRepositoryContract;
 
@@ -25,6 +26,7 @@ public class AppSQLiteOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(GroupRepositoryContract.CREATE_TABLE);
         db.execSQL(SenderRepositoryContract.CREATE_TABLE);
+        db.execSQL(GroupMemberRepositoryContract.CREATE_TABLE);
     }
 
     @Override

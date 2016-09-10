@@ -2,7 +2,6 @@ package io.kindstrom.senderremote.presentation.view.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -67,6 +66,6 @@ public class GroupListActivity extends BaseActivity implements GroupListView {
 
     @Override
     public void showGroup(Group group) {
-        Snackbar.make(rv_group_list, "Viewing group " + group.getName(), Snackbar.LENGTH_SHORT).show();
+        startActivity(SenderListActivity.getCallingIntent(this, group.getId()));
     }
 }

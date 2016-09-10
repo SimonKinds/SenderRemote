@@ -19,6 +19,7 @@ public class GroupListPresenter implements Presenter<GroupListView> {
 
     @Override
     public void attach(GroupListView groupListView) {
+        view = groupListView;
         groupListView.setGroups(getGroupsInteractor.execute());
     }
 
