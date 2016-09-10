@@ -10,8 +10,8 @@ public final class SenderRepositoryContract implements BaseColumns {
     public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME
             + " ("
             + _ID + " INTEGER PRIMARY KEY, "
-            + COLUMN_NAME + " TEXT, "
-            + COLUMN_NUMBER + " TEXT, "
+            + COLUMN_NAME + " TEXT NOT NULL, "
+            + COLUMN_NUMBER + " TEXT NOT NULL, "
             + COLUMN_PIN + " TEXT "
             + " )";
 
