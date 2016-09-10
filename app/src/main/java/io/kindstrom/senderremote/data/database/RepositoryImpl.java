@@ -6,9 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.kindstrom.senderremote.domain.database.Repository;
-
-public abstract class RepositoryImpl<E> implements Repository<E>, Mapper<E> {
+public abstract class RepositoryImpl<E> implements Mapper<E> {
     protected final SQLiteDatabase db;
 
 

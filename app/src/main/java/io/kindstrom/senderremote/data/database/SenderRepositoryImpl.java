@@ -9,13 +9,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.kindstrom.senderremote.data.database.contract.SenderRepositoryContract;
+import io.kindstrom.senderremote.domain.database.SenderRepository;
 import io.kindstrom.senderremote.domain.model.Pin;
 import io.kindstrom.senderremote.domain.model.Sender;
 
-public class SenderRepository extends RepositoryImpl<Sender> {
+public class SenderRepositoryImpl extends RepositoryImpl<Sender> implements SenderRepository {
 
     @Inject
-    public SenderRepository(SQLiteDatabase db) {
+    public SenderRepositoryImpl(SQLiteDatabase db) {
         super(db);
     }
 

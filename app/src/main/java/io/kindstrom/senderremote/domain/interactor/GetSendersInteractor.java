@@ -4,14 +4,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.kindstrom.senderremote.domain.database.Repository;
+import io.kindstrom.senderremote.domain.database.SenderRepository;
 import io.kindstrom.senderremote.domain.model.Sender;
 
 public class GetSendersInteractor implements Interactor<List<Sender>> {
-    private final Repository<Sender> senderRepository;
+    private final SenderRepository senderRepository;
 
     @Inject
-    public GetSendersInteractor(Repository<Sender> senderRepository) {
+    public GetSendersInteractor(SenderRepository senderRepository) {
         this.senderRepository = senderRepository;
     }
 
