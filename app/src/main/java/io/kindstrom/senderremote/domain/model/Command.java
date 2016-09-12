@@ -27,6 +27,18 @@ public abstract class Command {
         return commandString.toString();
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     protected abstract String commandIdentifier();
 
     protected abstract String commandStringBody();
@@ -38,9 +50,7 @@ public abstract class Command {
 
         Command command = (Command) o;
 
-        if (id != command.id) return false;
-        if (!name.equals(command.name)) return false;
-        return description.equals(command.description);
+        return id == command.id && name.equals(command.name) && description.equals(command.description);
 
     }
 

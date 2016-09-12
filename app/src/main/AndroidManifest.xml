@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.view.activity.SenderListActivity" />
+        <activity android:name=".presentation.view.activity.CommandListActivity" />
     </application>
 
 </manifest>

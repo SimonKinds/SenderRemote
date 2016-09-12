@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -85,6 +84,6 @@ public class SenderListActivity extends BaseActivity implements SenderListView {
 
     @Override
     public void showSender(Sender sender) {
-        Toast.makeText(this, "Showing " + sender.getName(), Toast.LENGTH_SHORT).show();
+        startActivity(CommandListActivity.getCallingIntent(this, sender.getId()));
     }
 }

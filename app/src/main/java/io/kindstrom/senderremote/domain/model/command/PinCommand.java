@@ -7,6 +7,10 @@ import io.kindstrom.senderremote.domain.model.Pin;
 public class PinCommand extends Command {
     private final Pin newPin;
 
+    public PinCommand(int id, String name, String description) {
+        this(id, name, description, null);
+    }
+
     public PinCommand(int id, String name, String description, Pin newPin) {
         super(id, name, description);
         this.newPin = newPin;

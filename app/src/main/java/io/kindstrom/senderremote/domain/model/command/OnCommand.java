@@ -4,6 +4,10 @@ import io.kindstrom.senderremote.domain.model.Duration;
 
 public class OnCommand extends OutputActionCommand {
 
+    public OnCommand(int id, String name, String description) {
+        super(id, name, description);
+    }
+
     public OnCommand(int id, String name, String description, int portNumber) {
         super(id, name, description, portNumber, null);
     }

@@ -8,6 +8,10 @@ public abstract class OutputActionCommand extends Command {
     private final int portNumber;
     private final Duration duration;
 
+    public OutputActionCommand(int id, String name, String description) {
+        this(id, name, description, -1, null);
+    }
+
     protected OutputActionCommand(int id, String name, String description, int portNumber, Duration duration) {
         super(id, name, description);
         this.portNumber = portNumber;
