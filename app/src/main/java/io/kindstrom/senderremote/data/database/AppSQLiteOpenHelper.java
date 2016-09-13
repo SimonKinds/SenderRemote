@@ -10,6 +10,8 @@ import javax.inject.Singleton;
 import io.kindstrom.senderremote.data.database.contract.CommandRepositoryContract;
 import io.kindstrom.senderremote.data.database.contract.GroupMemberRepositoryContract;
 import io.kindstrom.senderremote.data.database.contract.GroupRepositoryContract;
+import io.kindstrom.senderremote.data.database.contract.InputRepositoryContract;
+import io.kindstrom.senderremote.data.database.contract.OutputRepositoryContract;
 import io.kindstrom.senderremote.data.database.contract.SenderRepositoryContract;
 
 
@@ -29,7 +31,11 @@ public class AppSQLiteOpenHelper extends SQLiteOpenHelper {
         db.execSQL(SenderRepositoryContract.CREATE_TABLE);
         db.execSQL(GroupMemberRepositoryContract.CREATE_TABLE);
 
+        db.execSQL(InputRepositoryContract.CREATE_TABLE);
+        db.execSQL(OutputRepositoryContract.CREATE_TABLE);
+
         db.execSQL(CommandRepositoryContract.CREATE_TABLE);
+
     }
 
     @Override
