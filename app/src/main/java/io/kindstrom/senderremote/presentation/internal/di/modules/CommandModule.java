@@ -4,9 +4,6 @@ import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
-import io.kindstrom.senderremote.data.database.CommandRepositoryImpl;
-import io.kindstrom.senderremote.domain.database.CommandRepository;
-import io.kindstrom.senderremote.presentation.internal.di.PerActivity;
 
 @Module
 public class CommandModule {
@@ -15,12 +12,6 @@ public class CommandModule {
 
     public CommandModule(int senderId) {
         this.senderId = senderId;
-    }
-
-    @Provides
-    @PerActivity
-    static CommandRepository providesCommandRepository(CommandRepositoryImpl commandRepository) {
-        return commandRepository;
     }
 
     @Provides
