@@ -45,6 +45,11 @@ public class CommandListActivity extends BaseActivity implements CommandListView
         ButterKnife.bind(this);
 
         setupUi();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         presenter.attach(this);
     }
@@ -64,9 +69,10 @@ public class CommandListActivity extends BaseActivity implements CommandListView
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onPause() {
         presenter.detach();
-        super.onDestroy();
+
+        super.onPause();
     }
 
     @Override

@@ -50,9 +50,14 @@ public class GroupCreateActivity extends BaseActivity implements GroupCreateView
         if (savedInstanceState == null) {
             inject();
             ButterKnife.bind(this);
-
-            presenter.attach(this);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        presenter.attach(this);
     }
 
     void inject() {
@@ -63,9 +68,9 @@ public class GroupCreateActivity extends BaseActivity implements GroupCreateView
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onPause() {
         presenter.detach();
-        super.onDestroy();
+        super.onPause();
     }
 
     @OnClick(R.id.bt_create_group)

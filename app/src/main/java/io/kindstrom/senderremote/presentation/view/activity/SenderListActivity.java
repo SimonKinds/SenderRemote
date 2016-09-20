@@ -51,15 +51,20 @@ public class SenderListActivity extends BaseActivity implements SenderListView {
         ButterKnife.bind(this);
 
         rv.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         presenter.attach(this);
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onPause() {
         presenter.detach();
 
-        super.onDestroy();
+        super.onPause();
     }
 
     @Override

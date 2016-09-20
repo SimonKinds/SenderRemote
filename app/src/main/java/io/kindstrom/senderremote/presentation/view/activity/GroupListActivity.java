@@ -43,13 +43,13 @@ public class GroupListActivity extends BaseActivity implements GroupListView {
                 .applicationComponent(getApplicationComponent())
                 .build()
                 .inject(this);
-
-        presenter.attach(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        presenter.attach(this);
     }
 
     @Override
@@ -69,9 +69,10 @@ public class GroupListActivity extends BaseActivity implements GroupListView {
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onPause() {
         presenter.detach();
-        super.onDestroy();
+
+        super.onPause();
     }
 
     @Override
