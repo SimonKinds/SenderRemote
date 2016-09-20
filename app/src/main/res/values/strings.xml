@@ -3,4 +3,5 @@
     <string name="name">Name</string>
     <string name="group_create_select_senders">Select senders</string>
     <string name="create">Create</string>
+    <string name="add_group">Add Group</string>
 </resources>

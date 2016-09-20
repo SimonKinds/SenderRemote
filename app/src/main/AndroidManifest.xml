@@ -10,10 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".presentation.view.activity.GroupListActivity"></activity>
-        <activity android:name=".presentation.view.activity.SenderListActivity" />
-        <activity android:name=".presentation.view.activity.CommandListActivity" />
-        <activity android:name=".presentation.view.activity.GroupCreateActivity">
+        <activity android:name=".presentation.view.activity.GroupListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,6 +18,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".presentation.view.activity.SenderListActivity" />
+        <activity android:name=".presentation.view.activity.CommandListActivity" />
+        <activity android:name=".presentation.view.activity.GroupCreateActivity" />
     </application>
 
 </manifest>

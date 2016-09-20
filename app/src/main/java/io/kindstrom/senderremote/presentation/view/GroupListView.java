@@ -8,4 +8,6 @@ public interface GroupListView {
     void setGroups(List<Group> groups);
 
     void showGroup(Group group);
+
+    void showCreateGroupView();
 }

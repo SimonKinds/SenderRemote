@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.List;
 
@@ -20,6 +22,8 @@ import io.kindstrom.senderremote.presentation.view.GroupListView;
 
 
 public class GroupListActivity extends BaseActivity implements GroupListView {
+    private final static int REQUEST_CODE_CREATE_GROUP = 1;
+
     @BindView(R.id.rv)
     RecyclerView rv_group_list;
 
@@ -41,6 +45,27 @@ public class GroupListActivity extends BaseActivity implements GroupListView {
                 .inject(this);
 
         presenter.attach(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.group_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add:
+                presenter.onCreateGroupClicked();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -67,5 +92,10 @@ public class GroupListActivity extends BaseActivity implements GroupListView {
     @Override
     public void showGroup(Group group) {
         startActivity(SenderListActivity.getCallingIntent(this, group.getId()));
+    }
+
+    @Override
+    public void showCreateGroupView() {
+        startActivityForResult(GroupCreateActivity.getCallingIntent(this), REQUEST_CODE_CREATE_GROUP);
     }
 }

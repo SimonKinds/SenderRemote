@@ -31,4 +31,8 @@ public class GroupListPresenter implements Presenter<GroupListView> {
     public void onGroupClicked(Group group) {
         view.showGroup(group);
     }
+
+    public void onCreateGroupClicked() {
+        view.showCreateGroupView();
+    }
 }

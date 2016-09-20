@@ -14,8 +14,8 @@
             android:id="@+id/et_group_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/name"
             android:inputType="text"
-            tools:hint="@string/name"
             tools:text="Senders in Stockholm" />
     </android.support.design.widget.TextInputLayout>
 
