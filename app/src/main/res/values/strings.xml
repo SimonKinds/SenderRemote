@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Sender Remote</string>
+    <string name="name">Name</string>
+    <string name="group_create_select_senders">Select senders</string>
+    <string name="create">Create</string>
 </resources>
