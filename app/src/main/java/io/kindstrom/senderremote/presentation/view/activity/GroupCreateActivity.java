@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatCheckBox;
+import android.support.v7.widget.GridLayout;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -93,19 +93,24 @@ public class GroupCreateActivity extends BaseActivity implements GroupCreateView
     }
 
     private void addSendersToView(List<Sender> senders) {
+        GridLayout.Spec rowSpec = GridLayout.spec(GridLayout.UNDEFINED);
+        GridLayout.Spec colSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
         for (Sender s : senders) {
-            CheckBox v = new AppCompatCheckBox(this);
-            v.setTag(s.getId());
-            v.setText(s.getName());
+            CheckBox c = new AppCompatCheckBox(this);
+            c.setLayoutParams(new GridLayout.LayoutParams(rowSpec, colSpec));
+            c.setTag(s.getId());
+            c.setText(s.getName());
 
-            senderSelectionView.addView(v);
+            senderSelectionView.addView(c);
         }
     }
 
     private List<Integer> getSelectedMemberIds() {
         List<Integer> ids = new ArrayList<>();
         for (int i = 0; i < senderSelectionView.getChildCount(); ++i) {
-            ids.add((Integer) senderSelectionView.getChildAt(i).getTag());
+            if (((CheckBox) senderSelectionView.getChildAt(i)).isChecked()) {
+                ids.add((Integer) senderSelectionView.getChildAt(i).getTag());
+            }
         }
 
         return ids;

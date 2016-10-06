@@ -11,12 +11,13 @@ public class CreateGroupInteractor implements Interactor<Integer> {
     private final GroupRepository groupRepository;
     private final GroupMemberRepository groupMemberRepository;
 
-    private Group group;
+    private final Group group;
 
     @Inject
-    public CreateGroupInteractor(GroupRepository groupRepository, GroupMemberRepository groupMemberRepository) {
+    public CreateGroupInteractor(GroupRepository groupRepository, GroupMemberRepository groupMemberRepository, Group group) {
         this.groupRepository = groupRepository;
         this.groupMemberRepository = groupMemberRepository;
+        this.group = group;
     }
 
     @Override
@@ -30,9 +31,5 @@ public class CreateGroupInteractor implements Interactor<Integer> {
         for (Sender s : group.getSenders()) {
             groupMemberRepository.insert(groupId, s.getId());
         }
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
     }
 }

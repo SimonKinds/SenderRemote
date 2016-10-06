@@ -2,15 +2,20 @@ package io.kindstrom.senderremote.presentation.presenter;
 
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import io.kindstrom.senderremote.domain.interactor.CreateSenderInteractor;
+import io.kindstrom.senderremote.domain.interactor.GetDefaultCommandsInteractor;
 import io.kindstrom.senderremote.domain.interactor.GetGroupsInteractor;
+import io.kindstrom.senderremote.domain.interactor.factory.CreateSenderInteractorFactory;
+import io.kindstrom.senderremote.domain.model.Command;
 import io.kindstrom.senderremote.domain.model.Group;
 import io.kindstrom.senderremote.domain.model.Pin;
+import io.kindstrom.senderremote.domain.model.Port;
+import io.kindstrom.senderremote.domain.model.Sender;
 import io.kindstrom.senderremote.presentation.internal.di.PerActivity;
 import io.kindstrom.senderremote.presentation.view.SenderCreateView;
 
@@ -18,16 +23,18 @@ import io.kindstrom.senderremote.presentation.view.SenderCreateView;
 public class SenderCreatePresenter implements Presenter<SenderCreateView> {
     private final int fromGroupId;
     private final GetGroupsInteractor getGroupsInteractor;
-    private final CreateSenderInteractor createSenderInteractor;
+    private final CreateSenderInteractorFactory createSenderInteractorFactory;
+    private final GetDefaultCommandsInteractor getDefaultCommandsInteractor;
     private SenderCreateView view;
 
     @Inject
     public SenderCreatePresenter(@Named("groupId") int fromGroupId,
                                  GetGroupsInteractor getGroupsInteractor,
-                                 CreateSenderInteractor createSenderInteractor) {
+                                 CreateSenderInteractorFactory createSenderInteractorFactory, GetDefaultCommandsInteractor getDefaultCommandsInteractor) {
         this.fromGroupId = fromGroupId;
         this.getGroupsInteractor = getGroupsInteractor;
-        this.createSenderInteractor = createSenderInteractor;
+        this.createSenderInteractorFactory = createSenderInteractorFactory;
+        this.getDefaultCommandsInteractor = getDefaultCommandsInteractor;
     }
 
     @Override
@@ -92,14 +99,25 @@ public class SenderCreatePresenter implements Presenter<SenderCreateView> {
         String pin = view.getPin();
         List<Integer> groupIds = view.getGroups();
 
-        createSender(name, number, pin, inputNames, outputNames, groupIds);
+        List<Port> inputs = createPortFromNames(inputNames);
+        List<Port> outputs = createPortFromNames(outputNames);
+
+        List<Command> defaultCommands = getDefaultCommandsInteractor.execute();
+
+        createSender(new Sender(-1, name, number, Pin.create(pin), inputs, outputs, defaultCommands), groupIds);
     }
 
-    private void createSender(String name, String number, String pin, String[] inputNames, String[] outputNames, List<Integer> groupIds) {
-        createSenderInteractor.setParameters(name, number, Pin.create(pin),
-                inputNames, outputNames, groupIds);
-        createSenderInteractor.execute();
+    private void createSender(Sender sender, List<Integer> groupIds) {
+        createSenderInteractorFactory.create(sender, groupIds).execute();
 
         view.returnToPreviousView();
+    }
+
+    private List<Port> createPortFromNames(String[] names) {
+        List<Port> ports = new ArrayList<>();
+        for (int i = 0; i < names.length; ++i) {
+            ports.add(new Port(-1, i + 1, names[i]));
+        }
+        return ports;
     }
 }

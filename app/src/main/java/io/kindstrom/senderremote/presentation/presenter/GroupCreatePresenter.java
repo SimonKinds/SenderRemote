@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.kindstrom.senderremote.domain.interactor.CreateGroupInteractor;
 import io.kindstrom.senderremote.domain.interactor.GetAllSendersInteractor;
+import io.kindstrom.senderremote.domain.interactor.factory.CreateGroupInteractorFactory;
 import io.kindstrom.senderremote.domain.model.Group;
 import io.kindstrom.senderremote.domain.model.Sender;
 import io.kindstrom.senderremote.presentation.internal.di.PerActivity;
@@ -15,16 +15,15 @@ import io.kindstrom.senderremote.presentation.view.GroupCreateView;
 @PerActivity
 public class GroupCreatePresenter implements Presenter<GroupCreateView> {
     private final GetAllSendersInteractor getAllSendersInteractor;
-    private final CreateGroupInteractor createGroupInteractor;
+    private final CreateGroupInteractorFactory createGroupInteractorFactory;
 
     private GroupCreateView view;
     private List<Sender> allSenders;
 
     @Inject
-    public GroupCreatePresenter(GetAllSendersInteractor getAllSendersInteractor,
-                                CreateGroupInteractor createGroupInteractor) {
+    public GroupCreatePresenter(GetAllSendersInteractor getAllSendersInteractor, CreateGroupInteractorFactory createGroupInteractorFactory) {
         this.getAllSendersInteractor = getAllSendersInteractor;
-        this.createGroupInteractor = createGroupInteractor;
+        this.createGroupInteractorFactory = createGroupInteractorFactory;
     }
 
     @Override
@@ -53,8 +52,7 @@ public class GroupCreatePresenter implements Presenter<GroupCreateView> {
     public void onCreateButtonClicked(String name, List<Integer> selectedMemberIds) {
         Group group = new Group(-1, name, getSelectedSenders(selectedMemberIds));
 
-        createGroupInteractor.setGroup(group);
-        createGroupInteractor.execute();
+        createGroupInteractorFactory.create(group).execute();
 
         view.returnToPreviousView();
     }
