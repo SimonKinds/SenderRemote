@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -26,6 +27,8 @@ public class GroupListActivity extends BaseActivity implements GroupListView {
 
     @BindView(R.id.rv)
     RecyclerView rv_group_list;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Inject
     GroupListPresenter presenter;
@@ -36,13 +39,18 @@ public class GroupListActivity extends BaseActivity implements GroupListView {
         setContentView(R.layout.recycler_view);
 
         ButterKnife.bind(this);
-        rv_group_list.setLayoutManager(new LinearLayoutManager(this));
-
 
         DaggerGroupComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .build()
                 .inject(this);
+
+        setupUi();
+    }
+
+    private void setupUi() {
+        setSupportActionBar(toolbar);
+        rv_group_list.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override

@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.List;
 
@@ -24,8 +27,11 @@ import io.kindstrom.senderremote.presentation.view.SenderListView;
 
 public class SenderListActivity extends BaseActivity implements SenderListView {
     private static final String INTENT_EXTRA_GROUP_ID = "group_id";
+    private static final int REQUEST_CODE_SENDER_CREATE = 1;
     @BindView(R.id.rv)
     RecyclerView rv;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @Inject
     SenderListPresenter presenter;
 
@@ -49,7 +55,27 @@ public class SenderListActivity extends BaseActivity implements SenderListView {
                 .inject(this);
 
         ButterKnife.bind(this);
+        setupUi();
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.sender_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add:
+                presenter.onCreateSenderClicked();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setupUi() {
+        setSupportActionBar(toolbar);
         rv.setLayoutManager(new LinearLayoutManager(this));
     }
 
@@ -90,5 +116,10 @@ public class SenderListActivity extends BaseActivity implements SenderListView {
     @Override
     public void showSender(Sender sender) {
         startActivity(CommandListActivity.getCallingIntent(this, sender.getId()));
+    }
+
+    @Override
+    public void navigateToCreateSender(int groupId) {
+        startActivityForResult(SenderCreateActivity.getCallingIntent(this, groupId), REQUEST_CODE_SENDER_CREATE);
     }
 }

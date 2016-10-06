@@ -9,8 +9,8 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.kindstrom.senderremote.domain.database.GroupRepository;
 import io.kindstrom.senderremote.domain.model.Group;
+import io.kindstrom.senderremote.domain.repository.GroupRepository;
 
 import static org.junit.Assert.assertEquals;
 

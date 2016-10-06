@@ -10,4 +10,6 @@ public interface SenderListView {
     void setSenders(List<Sender> senders);
 
     void showSender(Sender sender);
+
+    void navigateToCreateSender(int groupId);
 }

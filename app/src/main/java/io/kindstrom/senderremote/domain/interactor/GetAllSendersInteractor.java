@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.kindstrom.senderremote.domain.database.SenderRepository;
 import io.kindstrom.senderremote.domain.model.Sender;
+import io.kindstrom.senderremote.domain.repository.SenderRepository;
 
 public class GetAllSendersInteractor implements Interactor<List<Sender>> {
     private final SenderRepository senderRepository;

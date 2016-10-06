@@ -10,7 +10,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.kindstrom.senderremote.data.database.contract.CommandRepositoryContract;
-import io.kindstrom.senderremote.domain.database.CommandRepository;
 import io.kindstrom.senderremote.domain.model.Command;
 import io.kindstrom.senderremote.domain.model.command.HumidityCommand;
 import io.kindstrom.senderremote.domain.model.command.LimitsCommand;
@@ -21,6 +20,7 @@ import io.kindstrom.senderremote.domain.model.command.PinCommand;
 import io.kindstrom.senderremote.domain.model.command.StatusCommand;
 import io.kindstrom.senderremote.domain.model.command.TechnicalStatusCommand;
 import io.kindstrom.senderremote.domain.model.command.TemperatureCommand;
+import io.kindstrom.senderremote.domain.repository.CommandRepository;
 
 
 public class CommandRepositoryImpl extends RepositoryImpl<Command> implements CommandRepository {

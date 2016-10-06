@@ -8,9 +8,9 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import io.kindstrom.senderremote.domain.database.GroupMemberRepository;
-import io.kindstrom.senderremote.domain.database.SenderRepository;
 import io.kindstrom.senderremote.domain.model.Sender;
+import io.kindstrom.senderremote.domain.repository.GroupMemberRepository;
+import io.kindstrom.senderremote.domain.repository.SenderRepository;
 
 public class GetSendersInteractor implements Interactor<List<Sender>> {
     private final int groupId;

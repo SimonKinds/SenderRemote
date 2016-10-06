@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.kindstrom.senderremote.domain.database.GroupRepository;
 import io.kindstrom.senderremote.domain.model.Group;
+import io.kindstrom.senderremote.domain.repository.GroupRepository;
 
 public class GetGroupsInteractor implements Interactor<List<Group>> {
     private final GroupRepository groupRepository;

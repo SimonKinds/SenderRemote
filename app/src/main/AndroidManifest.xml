@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".presentation.view.activity.GroupListActivity">
+        <activity
+            android:name=".presentation.view.activity.GroupListActivity"
+            android:label="@string/group_list_label">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +22,15 @@
         </activity>
         <activity android:name=".presentation.view.activity.SenderListActivity" />
         <activity android:name=".presentation.view.activity.CommandListActivity" />
-        <activity android:name=".presentation.view.activity.GroupCreateActivity" />
+        <activity
+            android:name=".presentation.view.activity.GroupCreateActivity"
+            android:label="@string/group_create_label" />
+        <activity
+            android:name=".presentation.view.activity.SenderCreateActivity"
+            android:label="@string/sender_create_label" />
+        <activity
+            android:name=".presentation.view.activity.PortNamingActivity"
+            android:label="@string/port_naming_label" />
     </application>
 
 </manifest>

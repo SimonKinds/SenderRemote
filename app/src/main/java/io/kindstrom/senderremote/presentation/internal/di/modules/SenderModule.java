@@ -9,6 +9,10 @@ import dagger.Provides;
 public class SenderModule {
     private final int groupId;
 
+    public SenderModule() {
+        groupId = -1;
+    }
+
     public SenderModule(int groupId) {
         this.groupId = groupId;
     }

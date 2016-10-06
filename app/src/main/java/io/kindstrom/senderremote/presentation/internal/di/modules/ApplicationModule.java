@@ -2,6 +2,7 @@ package io.kindstrom.senderremote.presentation.internal.di.modules;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 
 import javax.inject.Singleton;
@@ -15,12 +16,14 @@ import io.kindstrom.senderremote.data.database.GroupRepositoryImpl;
 import io.kindstrom.senderremote.data.database.InputRepositoryImpl;
 import io.kindstrom.senderremote.data.database.OutputRepositoryImpl;
 import io.kindstrom.senderremote.data.database.SenderRepositoryImpl;
-import io.kindstrom.senderremote.domain.database.CommandRepository;
-import io.kindstrom.senderremote.domain.database.GroupMemberRepository;
-import io.kindstrom.senderremote.domain.database.GroupRepository;
-import io.kindstrom.senderremote.domain.database.InputRepository;
-import io.kindstrom.senderremote.domain.database.OutputRepository;
-import io.kindstrom.senderremote.domain.database.SenderRepository;
+import io.kindstrom.senderremote.data.resource.DefaultCommandsRepositoryImpl;
+import io.kindstrom.senderremote.domain.repository.CommandRepository;
+import io.kindstrom.senderremote.domain.repository.DefaultCommandsRepository;
+import io.kindstrom.senderremote.domain.repository.GroupMemberRepository;
+import io.kindstrom.senderremote.domain.repository.GroupRepository;
+import io.kindstrom.senderremote.domain.repository.InputRepository;
+import io.kindstrom.senderremote.domain.repository.OutputRepository;
+import io.kindstrom.senderremote.domain.repository.SenderRepository;
 
 @Module
 public class ApplicationModule {
@@ -76,5 +79,17 @@ public class ApplicationModule {
     @Singleton
     Context providesApplicationContext() {
         return application;
+    }
+
+    @Provides
+    @Singleton
+    Resources provideResources() {
+        return application.getResources();
+    }
+
+    @Provides
+    @Singleton
+    DefaultCommandsRepository provideDefaultCommandsRepository(DefaultCommandsRepositoryImpl defaultCommandsRepository) {
+        return defaultCommandsRepository;
     }
 }

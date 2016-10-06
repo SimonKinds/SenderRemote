@@ -9,7 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.kindstrom.senderremote.data.database.contract.GroupMemberRepositoryContract;
-import io.kindstrom.senderremote.domain.database.GroupMemberRepository;
+import io.kindstrom.senderremote.domain.repository.GroupMemberRepository;
 
 
 public class GroupMemberRepositoryImpl extends RepositoryImpl<Integer> implements GroupMemberRepository {

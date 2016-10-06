@@ -9,7 +9,6 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.kindstrom.senderremote.domain.database.CommandRepository;
 import io.kindstrom.senderremote.domain.model.Command;
 import io.kindstrom.senderremote.domain.model.command.LimitsCommand;
 import io.kindstrom.senderremote.domain.model.command.MeasurementCommand;
@@ -17,6 +16,7 @@ import io.kindstrom.senderremote.domain.model.command.OffCommand;
 import io.kindstrom.senderremote.domain.model.command.OnCommand;
 import io.kindstrom.senderremote.domain.model.command.PinCommand;
 import io.kindstrom.senderremote.domain.model.command.StatusCommand;
+import io.kindstrom.senderremote.domain.repository.CommandRepository;
 
 import static org.junit.Assert.assertEquals;
 

@@ -9,8 +9,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.kindstrom.senderremote.data.database.contract.InputRepositoryContract;
-import io.kindstrom.senderremote.domain.database.InputRepository;
 import io.kindstrom.senderremote.domain.model.Port;
+import io.kindstrom.senderremote.domain.repository.InputRepository;
 
 
 public class InputRepositoryImpl extends RepositoryImpl<Port> implements InputRepository {

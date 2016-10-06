@@ -2,10 +2,10 @@ package io.kindstrom.senderremote.domain.interactor;
 
 import javax.inject.Inject;
 
-import io.kindstrom.senderremote.domain.database.GroupMemberRepository;
-import io.kindstrom.senderremote.domain.database.GroupRepository;
 import io.kindstrom.senderremote.domain.model.Group;
 import io.kindstrom.senderremote.domain.model.Sender;
+import io.kindstrom.senderremote.domain.repository.GroupMemberRepository;
+import io.kindstrom.senderremote.domain.repository.GroupRepository;
 
 public class CreateGroupInteractor implements Interactor<Integer> {
     private final GroupRepository groupRepository;

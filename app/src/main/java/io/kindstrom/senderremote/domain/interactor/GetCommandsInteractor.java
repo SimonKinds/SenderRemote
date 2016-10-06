@@ -5,8 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import io.kindstrom.senderremote.domain.database.CommandRepository;
 import io.kindstrom.senderremote.domain.model.Command;
+import io.kindstrom.senderremote.domain.repository.CommandRepository;
 
 public class GetCommandsInteractor implements Interactor<List<Command>> {
 

@@ -1,4 +1,4 @@
-package io.kindstrom.senderremote.domain.database;
+package io.kindstrom.senderremote.domain.repository;
 
 public interface OutputRepository extends PortRepository {
 }

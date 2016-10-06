@@ -8,7 +8,7 @@ import io.kindstrom.senderremote.presentation.internal.di.components.Application
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    protected final ApplicationComponent getApplicationComponent() {
+    public final ApplicationComponent getApplicationComponent() {
         return ((SenderRemoteApplication) getApplication()).getApplicationComponent();
     }
 }
