@@ -16,7 +16,10 @@ import io.kindstrom.senderremote.data.database.GroupRepositoryImpl;
 import io.kindstrom.senderremote.data.database.InputRepositoryImpl;
 import io.kindstrom.senderremote.data.database.OutputRepositoryImpl;
 import io.kindstrom.senderremote.data.database.SenderRepositoryImpl;
+import io.kindstrom.senderremote.data.executor.JobExecutor;
 import io.kindstrom.senderremote.data.resource.DefaultCommandsRepositoryImpl;
+import io.kindstrom.senderremote.domain.executor.PostExecutionThread;
+import io.kindstrom.senderremote.domain.executor.ThreadExecutor;
 import io.kindstrom.senderremote.domain.repository.CommandRepository;
 import io.kindstrom.senderremote.domain.repository.DefaultCommandsRepository;
 import io.kindstrom.senderremote.domain.repository.GroupMemberRepository;
@@ -24,6 +27,7 @@ import io.kindstrom.senderremote.domain.repository.GroupRepository;
 import io.kindstrom.senderremote.domain.repository.InputRepository;
 import io.kindstrom.senderremote.domain.repository.OutputRepository;
 import io.kindstrom.senderremote.domain.repository.SenderRepository;
+import io.kindstrom.senderremote.presentation.UIThread;
 
 @Module
 public class ApplicationModule {
@@ -31,6 +35,18 @@ public class ApplicationModule {
 
     public ApplicationModule(Application application) {
         this.application = application;
+    }
+
+    @Provides
+    @Singleton
+    static ThreadExecutor provideThreadExecutor(JobExecutor jobExecutor) {
+        return jobExecutor;
+    }
+
+    @Provides
+    @Singleton
+    static PostExecutionThread provideUiThread(UIThread uiThread) {
+        return uiThread;
     }
 
     @Provides
