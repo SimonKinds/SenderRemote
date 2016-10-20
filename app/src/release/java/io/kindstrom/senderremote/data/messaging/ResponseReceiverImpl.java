@@ -35,6 +35,7 @@ public class ResponseReceiverImpl implements ResponseReceiver {
         this.sender = sender;
     }
 
+    @NonNull
     @Override
     public Observable<Response> listen() {
         isSubscribed = true;

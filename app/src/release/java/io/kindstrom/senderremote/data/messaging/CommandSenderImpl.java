@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.support.annotation.NonNull;
 import android.telephony.SmsManager;
 
 import javax.inject.Inject;
@@ -37,8 +38,9 @@ public class CommandSenderImpl implements CommandSender {
         this.sender = sender;
     }
 
+    @NonNull
     @Override
-    public Observable<CommandSendingState> send(final String message) {
+    public Observable<CommandSendingState> send(@NonNull final String message) {
         isSubscribed = true;
 
         PendingIntent sentPI = PendingIntent.getBroadcast(context, REQUEST_CODE_SENT,
