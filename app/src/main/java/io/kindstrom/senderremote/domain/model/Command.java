@@ -1,5 +1,7 @@
 package io.kindstrom.senderremote.domain.model;
 
+import android.support.annotation.Nullable;
+
 public abstract class Command {
     private final int id;
     private final String name;
@@ -11,6 +13,7 @@ public abstract class Command {
         this.description = description;
     }
 
+    @Nullable
     public final String commandString(Pin pin) {
         String body = commandStringBody();
         if (pin == null || body == null) {
