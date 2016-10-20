@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.1'
+        classpath 'com.android.tools.build:gradle:2.2.2'
         // Needed for error when compiling
         /*
         Error:Execution failed for task ':app:transformJackWithJackForDebug'.

@@ -29,6 +29,7 @@ public class CommandSenderImpl implements CommandSender {
     private final Sender sender;
 
     private BroadcastReceiver receiver;
+    private boolean isSubscribed = false;
 
     @Inject
     public CommandSenderImpl(Context context, Sender sender) {
@@ -38,6 +39,8 @@ public class CommandSenderImpl implements CommandSender {
 
     @Override
     public Observable<CommandSendingState> send(final String message) {
+        isSubscribed = true;
+
         PendingIntent sentPI = PendingIntent.getBroadcast(context, REQUEST_CODE_SENT,
                 new Intent(ACTION_SENT), PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -74,7 +77,16 @@ public class CommandSenderImpl implements CommandSender {
                     SmsManager.getDefault().sendTextMessage(sender.getNumber(), null, message, sentPI,
                             deliveredPI);
                 })
-                .doOnComplete(() -> context.unregisterReceiver(receiver));
+                .doOnComplete(this::unsubscribeReceiver)
+                .doOnDispose(this::unsubscribeReceiver);
+
+    }
+
+    private void unsubscribeReceiver() {
+        if (isSubscribed) {
+            context.unregisterReceiver(receiver);
+            isSubscribed = false;
+        }
     }
 
     private CommandSendingState map(Intent intent, int resultCode) {
