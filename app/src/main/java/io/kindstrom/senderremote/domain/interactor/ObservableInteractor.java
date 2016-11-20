@@ -18,13 +18,27 @@ public abstract class ObservableInteractor<T> {
         this.postExecutionThread = postExecutionThread;
     }
 
-    protected abstract Observable<T> buildUseCaseObservable();
 
     public final void execute(Consumer<T> consumer) {
         disposable = buildUseCaseObservable()
                 .subscribeOn(Schedulers.from(threadExecutor))
                 .observeOn(postExecutionThread.getScheduler())
                 .subscribe(consumer);
+    }
+
+    public final void execute(Consumer<T> consumer, Object... args) {
+        disposable = buildUseCaseObservable(args)
+                .subscribeOn(Schedulers.from(threadExecutor))
+                .observeOn(postExecutionThread.getScheduler())
+                .subscribe(consumer);
+    }
+
+    protected Observable<T> buildUseCaseObservable() {
+        throw new RuntimeException("Interactor does not implement no-arg use case");
+    }
+
+    protected Observable<T> buildUseCaseObservable(Object[] args) {
+        throw new RuntimeException("Interactor does not implement arg use case");
     }
 
     public void unsubscribe() {
