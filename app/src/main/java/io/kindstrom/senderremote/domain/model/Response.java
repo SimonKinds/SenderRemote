@@ -9,6 +9,7 @@ public class Response {
         this.response = response;
     }
 
+    @NonNull
     public String getResponse() {
         return response;
     }
@@ -17,6 +18,7 @@ public class Response {
         Error error = Error.NO_ERROR;
 
         if (response.startsWith("Error")) {
+            String errorReason = response.substring(8);
             switch (response.toLowerCase()) {
                 case "error, invalid pin code":
                     error = Error.INVALID_PIN;
@@ -40,7 +42,6 @@ public class Response {
         Response response1 = (Response) o;
 
         return response.equals(response1.response);
-
     }
 
     @Override
@@ -55,7 +56,7 @@ public class Response {
                 '}';
     }
 
-    enum Error {
+    public enum Error {
         NO_ERROR,
         INVALID_PIN,
         UNKNOWN_COMMAND,
