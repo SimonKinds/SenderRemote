@@ -42,6 +42,7 @@ public class ResponseReceiverImpl implements ResponseReceiver {
     public void stop() {
     }
 
+    @NonNull
     private String createMockText() {
         if (command instanceof OutputActionCommand) {
             return "OK, output control executed";
@@ -60,7 +61,7 @@ public class ResponseReceiverImpl implements ResponseReceiver {
         } else if (command instanceof PinCommand) {
             return "OK, new PIN lagrad";
         } else {
-            return null;
+            return "Invalid message";
         }
     }
 }

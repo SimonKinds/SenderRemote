@@ -24,4 +24,10 @@ public class ReceiveResponseInteractor extends ObservableInteractor<Response> {
     protected Observable<Response> buildUseCaseObservable() {
         return responseReceiver.listen();
     }
+
+    @Override
+    public void unsubscribe() {
+        responseReceiver.stop();
+        super.unsubscribe();
+    }
 }
