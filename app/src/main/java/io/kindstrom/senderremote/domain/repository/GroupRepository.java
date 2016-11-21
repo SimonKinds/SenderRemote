@@ -5,7 +5,7 @@ import java.util.List;
 import io.kindstrom.senderremote.domain.model.Group;
 
 public interface GroupRepository {
-    int insert(Group sender);
+    int insert(Group group);
 
     int delete(int id);
 

@@ -28,8 +28,10 @@ public class CreateGroupInteractor implements Interactor<Integer> {
     }
 
     private void insertMembers(int groupId) {
-        for (Sender s : group.getSenders()) {
-            groupMemberRepository.insert(groupId, s.getId());
+        if (group.getSenders() != null) {
+            for (Sender s : group.getSenders()) {
+                groupMemberRepository.insert(groupId, s.getId());
+            }
         }
     }
 }
