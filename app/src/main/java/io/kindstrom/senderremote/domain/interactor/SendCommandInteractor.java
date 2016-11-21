@@ -23,7 +23,7 @@ public class SendCommandInteractor extends ObservableInteractor<CommandSendingSt
 
     @Override
     @Nullable
-    protected Observable<CommandSendingState> buildUseCaseObservable(Object[] args) {
+    protected Observable<CommandSendingState> buildUseCaseObservable(Object... args) {
         String message = (String) args[0];
         if (message == null) {
             return null;

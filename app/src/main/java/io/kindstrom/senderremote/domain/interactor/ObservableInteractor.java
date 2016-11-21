@@ -37,7 +37,7 @@ public abstract class ObservableInteractor<T> {
         throw new RuntimeException("Interactor does not implement no-arg use case");
     }
 
-    protected Observable<T> buildUseCaseObservable(Object[] args) {
+    protected Observable<T> buildUseCaseObservable(Object... args) {
         throw new RuntimeException("Interactor does not implement arg use case");
     }
 
