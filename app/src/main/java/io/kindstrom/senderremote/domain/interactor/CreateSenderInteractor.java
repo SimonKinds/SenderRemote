@@ -57,26 +57,34 @@ public class CreateSenderInteractor implements Interactor<Integer> {
 
 
     private void insertCommands(Sender sender) {
-        for (Command c : sender.getCommands()) {
-            commandRepository.insert(sender.getId(), c);
+        if (sender.getCommands() != null) {
+            for (Command c : sender.getCommands()) {
+                commandRepository.insert(sender.getId(), c);
+            }
         }
     }
 
     private void insertInputs(Sender sender) {
-        for (Port p : sender.getInputs()) {
-            inputRepository.insert(sender.getId(), p);
+        if (sender.getInputs() != null) {
+            for (Port p : sender.getInputs()) {
+                inputRepository.insert(sender.getId(), p);
+            }
         }
     }
 
     private void insertOutputs(Sender sender) {
+        if (sender.getOutputs() != null) {
         for (Port p : sender.getOutputs()) {
             outputRepository.insert(sender.getId(), p);
+        }
         }
     }
 
     private void insertGroupMembers(Sender sender) {
-        for (Integer g : groups) {
-            groupMemberRepository.insert(g, sender.getId());
+        if (groups != null) {
+            for (Integer g : groups) {
+                groupMemberRepository.insert(g, sender.getId());
+            }
         }
     }
 }
