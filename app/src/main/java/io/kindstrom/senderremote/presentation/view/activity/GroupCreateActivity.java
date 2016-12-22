@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.GridLayout;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -28,6 +29,8 @@ import io.kindstrom.senderremote.presentation.view.GroupCreateView;
 
 public class GroupCreateActivity extends BaseActivity implements GroupCreateView {
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.et_group_name)
     EditText groupNameView;
     @BindView(R.id.tv_sender_selection_title)
@@ -50,6 +53,7 @@ public class GroupCreateActivity extends BaseActivity implements GroupCreateView
         if (savedInstanceState == null) {
             inject();
             ButterKnife.bind(this);
+            setSupportActionBar(toolbar);
         }
     }
 
