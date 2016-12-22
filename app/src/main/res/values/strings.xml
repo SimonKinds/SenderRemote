@@ -39,4 +39,6 @@
     <string name="port_naming_label">Name Ports</string>
     <string name="permission_rationale">Sending and receiving SMS are how the application communicates with the senders</string>
     <string name="accept">Accept</string>
+    <string name="inputs">Inputs</string>
+    <string name="outputs">Outputs</string>
 </resources>

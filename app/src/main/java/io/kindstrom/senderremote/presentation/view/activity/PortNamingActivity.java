@@ -83,9 +83,6 @@ public class PortNamingActivity extends BaseActivity implements PortNamingFragme
                 amountOfInputs,
                 amountOfOutputs));
 
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.input));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.output));
-
         tabLayout.setupWithViewPager(viewPager);
     }
 
@@ -124,6 +121,17 @@ public class PortNamingActivity extends BaseActivity implements PortNamingFragme
                     return OutputNamingFragment.newInstance(amountOfOutputs);
             }
             return null;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case INDEX_INPUT:
+                    return getString(R.string.inputs);
+                case INDEX_OUTPUT:
+                    return getString(R.string.outputs);
+            }
+            return "";
         }
 
         @Override

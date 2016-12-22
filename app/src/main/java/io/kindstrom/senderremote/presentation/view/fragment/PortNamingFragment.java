@@ -72,21 +72,21 @@ public abstract class PortNamingFragment extends Fragment implements PortNamingV
         for (String name : names) {
             TextInputEditText et = new TextInputEditText(getActivity());
             et.setLayoutParams(layoutParams);
-            et.setText(name);
 
             TextInputLayout row = new TextInputLayout(getActivity());
             row.setLayoutParams(layoutParams);
+            row.addView(et);
+
             // in the case of creation, the default name of the port is the best one for hinting
             row.setHint(name);
-
-            row.addView(et);
+            et.setText(name);
             portNamingRows.addView(row);
         }
     }
 
     @Override
     public void navigateSoSenderCreationView() {
-        getActivity().finish();
+        navigator.navigateToSenderCreationView();
     }
 
     @Override
