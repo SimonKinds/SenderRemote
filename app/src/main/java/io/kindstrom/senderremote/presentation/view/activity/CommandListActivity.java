@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import java.util.List;
@@ -25,6 +26,8 @@ import io.kindstrom.senderremote.presentation.view.CommandListView;
 
 public class CommandListActivity extends BaseActivity implements CommandListView {
     private static final String INTENT_EXTRA_SENDER_ID = "sender_id";
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.rv)
     RecyclerView rv;
     @Inject
@@ -43,6 +46,7 @@ public class CommandListActivity extends BaseActivity implements CommandListView
 
         inject();
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
 
         setupUi();
     }
