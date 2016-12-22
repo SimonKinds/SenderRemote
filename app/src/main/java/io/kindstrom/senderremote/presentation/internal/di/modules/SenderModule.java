@@ -4,6 +4,10 @@ import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
+import io.kindstrom.senderremote.data.messaging.CommandSenderImpl;
+import io.kindstrom.senderremote.data.messaging.ResponseReceiverImpl;
+import io.kindstrom.senderremote.domain.messaging.CommandSender;
+import io.kindstrom.senderremote.domain.messaging.ResponseReceiver;
 
 @Module
 public class SenderModule {
@@ -15,6 +19,16 @@ public class SenderModule {
 
     public SenderModule(int groupId) {
         this.groupId = groupId;
+    }
+
+    @Provides
+    static CommandSender provideCommandSender(CommandSenderImpl commandSender) {
+        return commandSender;
+    }
+
+    @Provides
+    static ResponseReceiver provideResponseReceiver(ResponseReceiverImpl responseReceiver) {
+        return responseReceiver;
     }
 
     @Provides

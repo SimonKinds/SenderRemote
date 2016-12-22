@@ -33,7 +33,7 @@ public class CommandSenderImpl implements CommandSender {
     private boolean isSubscribed = false;
 
     @Inject
-    public CommandSenderImpl(Context context, Sender sender) {
+    public CommandSenderImpl(@NonNull Context context, @NonNull Sender sender) {
         this.context = context;
         this.sender = sender;
     }

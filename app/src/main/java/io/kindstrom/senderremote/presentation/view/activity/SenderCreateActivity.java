@@ -1,7 +1,9 @@
 package io.kindstrom.senderremote.presentation.view.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,16 +27,21 @@ import io.kindstrom.senderremote.domain.model.Group;
 import io.kindstrom.senderremote.presentation.internal.di.components.DaggerSenderComponent;
 import io.kindstrom.senderremote.presentation.internal.di.modules.SenderModule;
 import io.kindstrom.senderremote.presentation.presenter.SenderCreatePresenter;
+import io.kindstrom.senderremote.presentation.util.PermissionHandler;
 import io.kindstrom.senderremote.presentation.view.SenderCreateView;
+import io.kindstrom.senderremote.presentation.view.dialog.PermissionRationaleDialogFragment;
 
 
-public class SenderCreateActivity extends BaseActivity implements SenderCreateView {
+public class SenderCreateActivity extends BaseActivity implements SenderCreateView,
+        PermissionRationaleDialogFragment.PermissionCallback {
 
     public static final String RESULT_EXTRA_INPUT_NAMES = "input_names";
     public static final String RESULT_EXTRA_OUTPUT_NAMES = "output_names";
 
     private static final String INTENT_EXTRA_GROUP_ID = "group_id";
     private static final int REQUEST_CODE_PORT_NAMING = 1;
+
+    private static final String RATIONALE_TAG = "rationale dialog";
 
     @BindView(R.id.til_sender_name)
     TextInputLayout til_name;
@@ -70,6 +77,17 @@ public class SenderCreateActivity extends BaseActivity implements SenderCreateVi
         inject();
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PermissionHandler.REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    presenter.permissionAccepted();
+                }
+                break;
+        }
     }
 
     @Override
@@ -199,4 +217,19 @@ public class SenderCreateActivity extends BaseActivity implements SenderCreateVi
         til_pin.setError(getString(R.string.sender_Create_error_pin_needed));
     }
 
+    @Override
+    public void showRationale() {
+        PermissionRationaleDialogFragment dia = new PermissionRationaleDialogFragment();
+        dia.show(getSupportFragmentManager(), RATIONALE_TAG);
+    }
+
+    @Override
+    public Activity getActivity() {
+        return this;
+    }
+
+    @Override
+    public void onAccept() {
+        presenter.rationaleAccepted();
+    }
 }

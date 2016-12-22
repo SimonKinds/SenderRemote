@@ -6,7 +6,7 @@ import java.util.List;
 
 import io.kindstrom.senderremote.domain.model.Group;
 
-public interface SenderCreateView {
+public interface SenderCreateView extends PermissionView {
     void returnToPreviousView();
 
     void showGroups(@NonNull List<Group> groups);

@@ -37,4 +37,6 @@
     <string name="group_create_label">Create Group</string>
     <string name="sender_create_label">Create Sender</string>
     <string name="port_naming_label">Name Ports</string>
+    <string name="permission_rationale">Sending and receiving SMS are how the application communicates with the senders</string>
+    <string name="accept">Accept</string>
 </resources>

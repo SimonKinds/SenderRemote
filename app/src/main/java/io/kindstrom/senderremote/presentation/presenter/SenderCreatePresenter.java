@@ -10,31 +10,59 @@ import javax.inject.Named;
 
 import io.kindstrom.senderremote.domain.interactor.GetDefaultCommandsInteractor;
 import io.kindstrom.senderremote.domain.interactor.GetGroupsInteractor;
+import io.kindstrom.senderremote.domain.interactor.ReceiveResponseInteractor;
+import io.kindstrom.senderremote.domain.interactor.SendCommandInteractor;
 import io.kindstrom.senderremote.domain.interactor.factory.CreateSenderInteractorFactory;
 import io.kindstrom.senderremote.domain.model.Command;
 import io.kindstrom.senderremote.domain.model.Group;
 import io.kindstrom.senderremote.domain.model.Pin;
 import io.kindstrom.senderremote.domain.model.Port;
+import io.kindstrom.senderremote.domain.model.Response;
 import io.kindstrom.senderremote.domain.model.Sender;
+import io.kindstrom.senderremote.domain.model.command.StatusCommand;
 import io.kindstrom.senderremote.presentation.internal.di.PerActivity;
+import io.kindstrom.senderremote.presentation.util.PermissionHandler;
 import io.kindstrom.senderremote.presentation.view.SenderCreateView;
 
 @PerActivity
-public class SenderCreatePresenter implements Presenter<SenderCreateView> {
+public class SenderCreatePresenter implements Presenter<SenderCreateView>, PermissionPresenter {
     private final int fromGroupId;
     private final GetGroupsInteractor getGroupsInteractor;
     private final CreateSenderInteractorFactory createSenderInteractorFactory;
     private final GetDefaultCommandsInteractor getDefaultCommandsInteractor;
+    private final SendCommandInteractor sendCommandInteractor;
+    private final ReceiveResponseInteractor receiveResponseInteractor;
     private SenderCreateView view;
 
     @Inject
     public SenderCreatePresenter(@Named("groupId") int fromGroupId,
                                  GetGroupsInteractor getGroupsInteractor,
-                                 CreateSenderInteractorFactory createSenderInteractorFactory, GetDefaultCommandsInteractor getDefaultCommandsInteractor) {
+                                 CreateSenderInteractorFactory createSenderInteractorFactory, GetDefaultCommandsInteractor getDefaultCommandsInteractor, SendCommandInteractor sendCommandInteractor, ReceiveResponseInteractor receiveResponseInteractor) {
         this.fromGroupId = fromGroupId;
         this.getGroupsInteractor = getGroupsInteractor;
         this.createSenderInteractorFactory = createSenderInteractorFactory;
         this.getDefaultCommandsInteractor = getDefaultCommandsInteractor;
+        this.sendCommandInteractor = sendCommandInteractor;
+        this.receiveResponseInteractor = receiveResponseInteractor;
+
+        // start listening right away
+        receiveResponseInteractor.execute(this::responseReceived);
+    }
+
+    private void responseReceived(Response response) {
+        view.showPortNamingView(countInputs(response), countOutputs(response));
+    }
+
+    private int countInputs(Response response) {
+        return countOccurenceInString("IN", response.getResponse());
+    }
+
+    private int countOutputs(Response response) {
+        return countOccurenceInString("OUT", response.getResponse());
+    }
+
+    private int countOccurenceInString(String pattern, String target) {
+        return (target.length() - target.replaceAll(pattern, "").length()) / pattern.length();
     }
 
     @Override
@@ -62,6 +90,8 @@ public class SenderCreatePresenter implements Presenter<SenderCreateView> {
 
     @Override
     public void detach() {
+        sendCommandInteractor.unsubscribe();
+        receiveResponseInteractor.unsubscribe();
         view = null;
     }
 
@@ -89,8 +119,20 @@ public class SenderCreatePresenter implements Presenter<SenderCreateView> {
         }
 
         if (!hasError) {
-            view.showPortNamingView(4, 2);
+            if (PermissionHandler.hasPermissions(view.getActivity())) {
+                sendStatusCommand(Pin.create(pin));
+            } else if (PermissionHandler.shouldShowRationale(view.getActivity())) {
+                view.showRationale();
+            } else {
+                PermissionHandler.requestPermissions(view.getActivity());
+            }
         }
+    }
+
+    private void sendStatusCommand(Pin pin) {
+        StatusCommand command = new StatusCommand(-1, "", "");
+        sendCommandInteractor.execute((state) -> {
+        }, command.commandString(pin));
     }
 
     public void portNamesReceived(@NonNull String[] inputNames, @NonNull String[] outputNames) {
@@ -119,5 +161,15 @@ public class SenderCreatePresenter implements Presenter<SenderCreateView> {
             ports.add(new Port(-1, i + 1, names[i]));
         }
         return ports;
+    }
+
+    @Override
+    public void rationaleAccepted() {
+        PermissionHandler.requestPermissions(view.getActivity());
+    }
+
+    @Override
+    public void permissionAccepted() {
+        sendStatusCommand(Pin.create(view.getPin()));
     }
 }

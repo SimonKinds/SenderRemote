@@ -1,11 +1,13 @@
 package io.kindstrom.senderremote.presentation.internal.di.components;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
+import io.kindstrom.senderremote.domain.executor.PostExecutionThread;
 import io.kindstrom.senderremote.domain.executor.ThreadExecutor;
 import io.kindstrom.senderremote.domain.repository.CommandRepository;
 import io.kindstrom.senderremote.domain.repository.DefaultCommandsRepository;
@@ -14,15 +16,16 @@ import io.kindstrom.senderremote.domain.repository.GroupRepository;
 import io.kindstrom.senderremote.domain.repository.InputRepository;
 import io.kindstrom.senderremote.domain.repository.OutputRepository;
 import io.kindstrom.senderremote.domain.repository.SenderRepository;
-import io.kindstrom.senderremote.presentation.UIThread;
 import io.kindstrom.senderremote.presentation.internal.di.modules.ApplicationModule;
 
 @Singleton
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
+    Context context();
+
     ThreadExecutor threadExecutor();
 
-    UIThread uiThread();
+    PostExecutionThread postExecutionThread();
 
     SQLiteDatabase db();
 
