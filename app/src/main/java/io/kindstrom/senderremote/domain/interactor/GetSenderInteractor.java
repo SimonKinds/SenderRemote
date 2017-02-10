@@ -14,9 +14,7 @@ import io.kindstrom.senderremote.domain.repository.CommandRepository;
 import io.kindstrom.senderremote.domain.repository.InputRepository;
 import io.kindstrom.senderremote.domain.repository.OutputRepository;
 import io.kindstrom.senderremote.domain.repository.SenderRepository;
-import io.kindstrom.senderremote.presentation.internal.di.PerActivity;
 
-@PerActivity
 public class GetSenderInteractor implements Interactor<Sender> {
     private final int senderId;
     private final SenderRepository senderRepository;

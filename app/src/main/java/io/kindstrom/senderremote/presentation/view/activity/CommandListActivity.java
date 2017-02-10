@@ -18,8 +18,8 @@ import butterknife.ButterKnife;
 import io.kindstrom.senderremote.R;
 import io.kindstrom.senderremote.domain.model.Command;
 import io.kindstrom.senderremote.presentation.adapter.SingleTextItemAdapter;
-import io.kindstrom.senderremote.presentation.internal.di.components.DaggerCommandComponent;
-import io.kindstrom.senderremote.presentation.internal.di.modules.CommandModule;
+import io.kindstrom.senderremote.presentation.internal.di.components.DaggerSenderComponent;
+import io.kindstrom.senderremote.presentation.internal.di.modules.SenderModule;
 import io.kindstrom.senderremote.presentation.presenter.CommandListPresenter;
 import io.kindstrom.senderremote.presentation.view.CommandListView;
 
@@ -65,9 +65,9 @@ public class CommandListActivity extends BaseActivity implements CommandListView
     private void inject() {
         int senderId = getIntent().getExtras().getInt(INTENT_EXTRA_SENDER_ID);
 
-        DaggerCommandComponent.builder()
-                .applicationComponent(getApplicationComponent())
-                .commandModule(new CommandModule(senderId))
+        DaggerSenderComponent.builder()
+                .groupComponent(getGroupComponent())
+                .senderModule(new SenderModule(senderId))
                 .build()
                 .inject(this);
     }

@@ -7,10 +7,8 @@ import javax.inject.Inject;
 import io.kindstrom.senderremote.domain.interactor.GetCommandsInteractor;
 import io.kindstrom.senderremote.domain.model.Command;
 import io.kindstrom.senderremote.domain.model.Sender;
-import io.kindstrom.senderremote.presentation.internal.di.PerActivity;
 import io.kindstrom.senderremote.presentation.view.CommandListView;
 
-@PerActivity
 public class CommandListPresenter implements Presenter<CommandListView> {
     private final Sender sender;
     private final GetCommandsInteractor getCommandsInteractor;
