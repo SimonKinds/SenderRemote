@@ -11,6 +11,10 @@ public class Sender {
     private final List<Port> outputs;
     private final List<Command> commands;
 
+    public Sender(int id, String name, String number, Pin pin) {
+        this(id, name, number, pin, null, null, null);
+    }
+
     public Sender(int id, String name, String number, Pin pin, List<Port> inputs, List<Port> outputs, List<Command> commands) {
         this.id = id;
         this.name = name;

@@ -7,10 +7,8 @@ import javax.inject.Named;
 
 import io.kindstrom.senderremote.domain.interactor.GetSendersInteractor;
 import io.kindstrom.senderremote.domain.model.Sender;
-import io.kindstrom.senderremote.presentation.internal.di.PerActivity;
 import io.kindstrom.senderremote.presentation.view.SenderListView;
 
-@PerActivity
 public class SenderListPresenter implements Presenter<SenderListView> {
 
     private final int groupId;

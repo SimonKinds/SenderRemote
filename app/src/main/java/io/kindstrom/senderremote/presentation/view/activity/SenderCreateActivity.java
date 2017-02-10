@@ -24,8 +24,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.kindstrom.senderremote.R;
 import io.kindstrom.senderremote.domain.model.Group;
-import io.kindstrom.senderremote.presentation.internal.di.components.DaggerSenderComponent;
-import io.kindstrom.senderremote.presentation.internal.di.modules.SenderModule;
+import io.kindstrom.senderremote.presentation.internal.di.components.DaggerGroupComponent;
+import io.kindstrom.senderremote.presentation.internal.di.modules.GroupModule;
 import io.kindstrom.senderremote.presentation.presenter.SenderCreatePresenter;
 import io.kindstrom.senderremote.presentation.util.PermissionHandler;
 import io.kindstrom.senderremote.presentation.view.SenderCreateView;
@@ -119,9 +119,9 @@ public class SenderCreateActivity extends BaseActivity implements SenderCreateVi
     private void inject() {
         int groupId = getIntent().getExtras().getInt(INTENT_EXTRA_GROUP_ID);
 
-        DaggerSenderComponent.builder()
+        DaggerGroupComponent.builder()
                 .applicationComponent(getApplicationComponent())
-                .senderModule(new SenderModule(groupId))
+                .groupModule(new GroupModule(groupId))
                 .build()
                 .inject(this);
     }

@@ -9,9 +9,7 @@ import io.kindstrom.senderremote.domain.executor.PostExecutionThread;
 import io.kindstrom.senderremote.domain.executor.ThreadExecutor;
 import io.kindstrom.senderremote.domain.interactor.ReceiveResponseInteractor;
 import io.kindstrom.senderremote.domain.model.Sender;
-import io.kindstrom.senderremote.presentation.internal.di.PerGroup;
 
-@PerGroup
 public class ReceiveResponseInteractorFactory {
     private final ThreadExecutor threadExecutor;
     private final PostExecutionThread postExecutionThread;

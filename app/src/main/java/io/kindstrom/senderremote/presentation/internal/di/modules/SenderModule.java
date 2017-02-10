@@ -8,32 +8,32 @@ import io.kindstrom.senderremote.data.messaging.CommandSenderImpl;
 import io.kindstrom.senderremote.data.messaging.ResponseReceiverImpl;
 import io.kindstrom.senderremote.domain.messaging.CommandSender;
 import io.kindstrom.senderremote.domain.messaging.ResponseReceiver;
+import io.kindstrom.senderremote.presentation.internal.di.PerSender;
 
 @Module
 public class SenderModule {
-    private final int groupId;
+    private final int senderId;
 
-    public SenderModule() {
-        groupId = -1;
-    }
-
-    public SenderModule(int groupId) {
-        this.groupId = groupId;
+    public SenderModule(int senderId) {
+        this.senderId = senderId;
     }
 
     @Provides
+    @PerSender
     static CommandSender provideCommandSender(CommandSenderImpl commandSender) {
         return commandSender;
     }
 
     @Provides
+    @PerSender
     static ResponseReceiver provideResponseReceiver(ResponseReceiverImpl responseReceiver) {
         return responseReceiver;
     }
 
     @Provides
-    @Named("groupId")
-    int provideGroupId() {
-        return groupId;
+    @PerSender
+    @Named("senderId")
+    int provideSenderId() {
+        return senderId;
     }
 }

@@ -2,7 +2,7 @@ package io.kindstrom.senderremote.presentation.view.fragment;
 
 import javax.inject.Inject;
 
-import io.kindstrom.senderremote.presentation.internal.di.components.DaggerSenderComponent;
+import io.kindstrom.senderremote.presentation.internal.di.components.DaggerGroupComponent;
 import io.kindstrom.senderremote.presentation.presenter.InputNamingPresenter;
 
 public class InputNamingFragment extends PortNamingFragment {
@@ -17,7 +17,7 @@ public class InputNamingFragment extends PortNamingFragment {
 
     @Override
     protected void inject() {
-        DaggerSenderComponent.builder()
+        DaggerGroupComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .build()
                 .inject(this);

@@ -1,6 +1,7 @@
 package io.kindstrom.senderremote.presentation.presenter;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,8 @@ import io.kindstrom.senderremote.domain.interactor.GetGroupsInteractor;
 import io.kindstrom.senderremote.domain.interactor.ReceiveResponseInteractor;
 import io.kindstrom.senderremote.domain.interactor.SendCommandInteractor;
 import io.kindstrom.senderremote.domain.interactor.factory.CreateSenderInteractorFactory;
+import io.kindstrom.senderremote.domain.interactor.factory.ReceiveResponseInteractorFactory;
+import io.kindstrom.senderremote.domain.interactor.factory.SendCommandInteractorFactory;
 import io.kindstrom.senderremote.domain.model.Command;
 import io.kindstrom.senderremote.domain.model.Group;
 import io.kindstrom.senderremote.domain.model.Pin;
@@ -20,33 +23,38 @@ import io.kindstrom.senderremote.domain.model.Port;
 import io.kindstrom.senderremote.domain.model.Response;
 import io.kindstrom.senderremote.domain.model.Sender;
 import io.kindstrom.senderremote.domain.model.command.StatusCommand;
-import io.kindstrom.senderremote.presentation.internal.di.PerActivity;
 import io.kindstrom.senderremote.presentation.util.PermissionHandler;
 import io.kindstrom.senderremote.presentation.view.SenderCreateView;
 
-@PerActivity
 public class SenderCreatePresenter implements Presenter<SenderCreateView>, PermissionPresenter {
     private final int fromGroupId;
+    @NonNull
     private final GetGroupsInteractor getGroupsInteractor;
-    private final CreateSenderInteractorFactory createSenderInteractorFactory;
+    @NonNull
     private final GetDefaultCommandsInteractor getDefaultCommandsInteractor;
-    private final SendCommandInteractor sendCommandInteractor;
-    private final ReceiveResponseInteractor receiveResponseInteractor;
+    @NonNull
+    private final CreateSenderInteractorFactory createSenderInteractorFactory;
+    @NonNull
+    private final SendCommandInteractorFactory sendCommandInteractorFactory;
+    @NonNull
+    private final ReceiveResponseInteractorFactory receiveResponseInteractorFactory;
+
+    @Nullable
+    private SendCommandInteractor sendCommandInteractor;
+    @Nullable
+    private ReceiveResponseInteractor receiveResponseInteractor;
     private SenderCreateView view;
 
     @Inject
     public SenderCreatePresenter(@Named("groupId") int fromGroupId,
-                                 GetGroupsInteractor getGroupsInteractor,
-                                 CreateSenderInteractorFactory createSenderInteractorFactory, GetDefaultCommandsInteractor getDefaultCommandsInteractor, SendCommandInteractor sendCommandInteractor, ReceiveResponseInteractor receiveResponseInteractor) {
+                                 @NonNull GetGroupsInteractor getGroupsInteractor,
+                                 @NonNull CreateSenderInteractorFactory createSenderInteractorFactory, @NonNull GetDefaultCommandsInteractor getDefaultCommandsInteractor, @NonNull SendCommandInteractorFactory sendCommandInteractorFactory, @NonNull ReceiveResponseInteractorFactory receiveResponseInteractorFactory) {
         this.fromGroupId = fromGroupId;
         this.getGroupsInteractor = getGroupsInteractor;
         this.createSenderInteractorFactory = createSenderInteractorFactory;
         this.getDefaultCommandsInteractor = getDefaultCommandsInteractor;
-        this.sendCommandInteractor = sendCommandInteractor;
-        this.receiveResponseInteractor = receiveResponseInteractor;
-
-        // start listening right away
-        receiveResponseInteractor.execute(this::responseReceived);
+        this.sendCommandInteractorFactory = sendCommandInteractorFactory;
+        this.receiveResponseInteractorFactory = receiveResponseInteractorFactory;
     }
 
     private void responseReceived(Response response) {
@@ -90,8 +98,8 @@ public class SenderCreatePresenter implements Presenter<SenderCreateView>, Permi
 
     @Override
     public void detach() {
-        sendCommandInteractor.unsubscribe();
-        receiveResponseInteractor.unsubscribe();
+        if (sendCommandInteractor != null) sendCommandInteractor.unsubscribe();
+        if (receiveResponseInteractor != null) receiveResponseInteractor.unsubscribe();
         view = null;
     }
 
@@ -119,6 +127,7 @@ public class SenderCreatePresenter implements Presenter<SenderCreateView>, Permi
         }
 
         if (!hasError) {
+            initializeInteractors(name, number, pin);
             if (PermissionHandler.hasPermissions(view.getActivity())) {
                 sendStatusCommand(Pin.create(pin));
             } else if (PermissionHandler.shouldShowRationale(view.getActivity())) {
@@ -129,7 +138,19 @@ public class SenderCreatePresenter implements Presenter<SenderCreateView>, Permi
         }
     }
 
+    private void initializeInteractors(String name, String number, String pin) {
+        Sender sender = new Sender(-1, name, number, Pin.create(pin));
+        sendCommandInteractor = sendCommandInteractorFactory.create(sender);
+        receiveResponseInteractor = receiveResponseInteractorFactory.create(sender);
+        // start listening right away
+        receiveResponseInteractor.execute(this::responseReceived);
+    }
+
     private void sendStatusCommand(Pin pin) {
+        if (sendCommandInteractor == null) {
+            throw new RuntimeException("SendCommandInteractor has not been initialized");
+        }
+
         StatusCommand command = new StatusCommand(-1, "", "");
         sendCommandInteractor.execute((state) -> {
         }, command.commandString(pin));

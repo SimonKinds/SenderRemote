@@ -19,8 +19,8 @@ import butterknife.ButterKnife;
 import io.kindstrom.senderremote.R;
 import io.kindstrom.senderremote.domain.model.Sender;
 import io.kindstrom.senderremote.presentation.adapter.SingleTextItemAdapter;
-import io.kindstrom.senderremote.presentation.internal.di.components.DaggerSenderComponent;
-import io.kindstrom.senderremote.presentation.internal.di.modules.SenderModule;
+import io.kindstrom.senderremote.presentation.internal.di.components.DaggerGroupComponent;
+import io.kindstrom.senderremote.presentation.internal.di.modules.GroupModule;
 import io.kindstrom.senderremote.presentation.presenter.SenderListPresenter;
 import io.kindstrom.senderremote.presentation.view.SenderListView;
 
@@ -48,9 +48,9 @@ public class SenderListActivity extends BaseActivity implements SenderListView {
 
         int groupId = getIntent().getExtras().getInt(INTENT_EXTRA_GROUP_ID);
 
-        DaggerSenderComponent.builder()
+        DaggerGroupComponent.builder()
                 .applicationComponent(getApplicationComponent())
-                .senderModule(new SenderModule(groupId))
+                .groupModule(new GroupModule(groupId))
                 .build()
                 .inject(this);
 
