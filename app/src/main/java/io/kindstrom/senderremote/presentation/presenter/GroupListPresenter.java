@@ -4,10 +4,8 @@ import javax.inject.Inject;
 
 import io.kindstrom.senderremote.domain.interactor.GetGroupsInteractor;
 import io.kindstrom.senderremote.domain.model.Group;
-import io.kindstrom.senderremote.presentation.internal.di.PerActivity;
 import io.kindstrom.senderremote.presentation.view.GroupListView;
 
-@PerActivity
 public class GroupListPresenter implements Presenter<GroupListView> {
     private final GetGroupsInteractor getGroupsInteractor;
     private GroupListView view;

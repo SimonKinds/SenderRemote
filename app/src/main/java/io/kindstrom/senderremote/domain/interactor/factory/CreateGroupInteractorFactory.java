@@ -6,9 +6,7 @@ import io.kindstrom.senderremote.domain.interactor.CreateGroupInteractor;
 import io.kindstrom.senderremote.domain.model.Group;
 import io.kindstrom.senderremote.domain.repository.GroupMemberRepository;
 import io.kindstrom.senderremote.domain.repository.GroupRepository;
-import io.kindstrom.senderremote.presentation.internal.di.PerActivity;
 
-@PerActivity
 public class CreateGroupInteractorFactory {
     private final GroupRepository groupRepository;
     private final GroupMemberRepository groupMemberRepository;

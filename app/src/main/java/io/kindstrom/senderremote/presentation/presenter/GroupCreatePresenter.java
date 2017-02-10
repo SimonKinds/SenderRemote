@@ -9,10 +9,8 @@ import io.kindstrom.senderremote.domain.interactor.GetAllSendersInteractor;
 import io.kindstrom.senderremote.domain.interactor.factory.CreateGroupInteractorFactory;
 import io.kindstrom.senderremote.domain.model.Group;
 import io.kindstrom.senderremote.domain.model.Sender;
-import io.kindstrom.senderremote.presentation.internal.di.PerActivity;
 import io.kindstrom.senderremote.presentation.view.GroupCreateView;
 
-@PerActivity
 public class GroupCreatePresenter implements Presenter<GroupCreateView> {
     private final GetAllSendersInteractor getAllSendersInteractor;
     private final CreateGroupInteractorFactory createGroupInteractorFactory;
