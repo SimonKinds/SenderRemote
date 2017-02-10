@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import io.kindstrom.senderremote.domain.messaging.ResponseReceiver;
 import io.kindstrom.senderremote.domain.model.Response;
+import io.kindstrom.senderremote.domain.model.Sender;
 import io.kindstrom.senderremote.presentation.internal.di.PerActivity;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -19,12 +20,14 @@ import io.reactivex.ObservableEmitter;
 @PerActivity
 public class ResponseReceiverImpl implements ResponseReceiver {
     private final Context context;
+    private final Sender sender;
 
     private BroadcastReceiver broadcastReceiver;
 
     @Inject
-    public ResponseReceiverImpl(@NonNull Context context) {
+    public ResponseReceiverImpl(@NonNull Context context, @NonNull Sender sender) {
         this.context = context;
+        this.sender = sender;
     }
 
     @NonNull

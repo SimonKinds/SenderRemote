@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import io.kindstrom.senderremote.domain.messaging.CommandSender;
 import io.kindstrom.senderremote.domain.model.CommandSendingState;
+import io.kindstrom.senderremote.domain.model.Sender;
 import io.kindstrom.senderremote.presentation.internal.di.PerActivity;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -20,11 +21,15 @@ public class CommandSenderImpl implements CommandSender {
     public static final String INTENT_EXTRA_RESPONSE = "response text";
 
     private static final int DELAY = 100; //ms
+    @NonNull
     private final Context context;
+    @NonNull
+    private final Sender sender;
 
     @Inject
-    public CommandSenderImpl(@NonNull Context context) {
+    public CommandSenderImpl(@NonNull Context context, @NonNull Sender sender) {
         this.context = context;
+        this.sender = sender;
     }
 
     @NonNull
